@@ -1,0 +1,37 @@
+This homework is for C++ practice.  If you never learned it that well,
+or just forgot it since freshman year, this is your chance to master
+C++ before you start writing assembler.
+
+1. The program first.cc is partially written.  Complete it to contain the following loops:
+  a. count from 1 to 10 printing out each number separated by a space.  Then print a newline.
+  b. count from 10 down to 0.
+  c. count from 0 to 10 by twos.
+  d. start with 1 and double each time until 1024
+  
+The output of first.c should look like this:
+
+1 2 3 4 5 6 7 8 9 10
+10 9 8 7 6 5 4 3 2 1 0
+0 2 4 6 8 10
+1 2 4 8 16 32 64 128 256 512 1024
+
+2. Write a program computing sums, each in a function.
+The framework of the program is there
+
+  a. Sum the numbers from 1 to n using the function sum.
+  b. Sum the reciprocals of numbers 1/1 + 1/2 + 1/3 + ... + 1/n
+  c. Sum the reciprocals as in part b, but in the reverse order:
+     1/n + 1/(n-1) + ... 1/1
+
+3. Floating Point
+  a. Read in two numbers a and b from stdin (given), then compute c, the hypotenuse
+  b. compute and print the area of the triangle
+
+Example output:
+3 4
+The hypotenuse is: 5
+The area is: 6
+
+4. Roundoff Error
+  a. Write a loop to print out numbers from 0.0 to 10.0 stepping by 0.1 using single precision (float).
+  b. Do the same thing but with double precision.

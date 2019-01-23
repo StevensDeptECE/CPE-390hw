@@ -1,0 +1,25 @@
+Hello!
+This is your first homework.  All of the assembler assignments will be like this.
+to build the homework use the make command
+
+make
+
+There are 3 targets in the Makefile.  The first will by default build everything.
+
+make hw1setup
+
+will build just the first target, which uses C++.  You can then look at the generated assembly language and hopefully learn what you need to do.
+
+Your job is to write the file add.s
+If you correctly write assembler code to add two 32 bit numbers, then your program when built should print the number 5.
+
+Once you get that done, you must submit your code.  Do this with the following commands:
+
+git add .
+git commit -m"your comment here, like I just submitted hw1 yay me!"
+git push
+
+the first command, git add assumes that you are in the directory hw1.
+
+If you have any problems pushing your homework, please contact your TA.
+Good luck!
