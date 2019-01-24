@@ -4,13 +4,15 @@ int sum(int n) {
 
 }
 
-// sum the numbers from 1/1 to 1/n and return
+// sum the numbers from 1/1 + 1/2 + 1/3 + ... to 1/n and return
+// sum 1/1 + 1/2 + 1/3 + ... + 1/100 = 5.18
 float sumReciprocals(int n) {
 
 	
 }
 
 // sum the numbers from 1/n to 1/1 (same as above but reversed) and return
+// 1/n + 1/(n-1) + 1/(n-2) + ... + 1/1
 float sumReciprocalsReverse(int n) {
 
 }
