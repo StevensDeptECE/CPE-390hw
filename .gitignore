@@ -33,3 +33,4 @@
 
 #ignore emacs backup files
 *~
+hw*setup
