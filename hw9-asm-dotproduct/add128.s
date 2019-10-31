@@ -1,2 +1,0 @@
-	.globl XXX
-XXX:	
