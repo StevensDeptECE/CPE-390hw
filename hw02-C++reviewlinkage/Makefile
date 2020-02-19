@@ -1,4 +1,4 @@
-CXX	:=	g++ -g -std=C++11
+CXX	:=	g++ -g 
 
 hw2: main.o funcs.o
 	$(CXX) main.o funcs.o -o hw2
