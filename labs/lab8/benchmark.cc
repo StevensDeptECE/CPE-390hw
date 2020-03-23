@@ -378,6 +378,51 @@ void matmult4(float ans[], float a[], float b[], uint32_t n) {
 }
 #endif
 
+constexpr double PI = 3.14159265358979;
+/*
+	Second part, added March 20, 2020
+*/
+
+/* Compute the product of all these terms. Look at the assembly language. Can you come up with a more efficient way to get the same answer? Benchmark the original and your better version.
+*/
+double deg2rad(uint32_t n) {
+	const double x = 0.001;
+	double y = 1;
+	for (uint32_t i = 0; i < n; i++) {
+		y = y * x * PI / 180;
+	}
+	return y;
+}
+
+/* 
+	 The force due to gravity is:
+
+	 F = G*m1*m2 / (r*r)
+
+	 The acceleration of mass 1 is
+
+	 a =  F / m1
+*/
+double grav(uint32_t n) {
+	constexpr double G =  6.6742E-11; // universal gravitational constant
+	double x = 0; // one dimensional problem. Start at x = 0
+	double v = 0; // velocity = 0 to start
+	double r = 1.5e12; // distance apart
+	const double m1 = 5.972e24;      // earth mass
+	const double m2 = 7.34767309e22; // moon mass
+	constexpr double dt = 0.1; // 0.1 second timestep
+	for (uint32_t i = 0; i < n; i++) {
+		double F = G * m1 * m2 / (r*r);
+		double a = F / m1;
+		x = x + v * dt + 0.5*a * dt * dt;
+		v = v + a * dt;
+	}
+	return x;
+}
+
+
+
+
 
 /*
 	benchmarking a few instructions almost never makes sense
@@ -386,14 +431,15 @@ void matmult4(float ans[], float a[], float b[], uint32_t n) {
 	add r0, #4
   ...
 
-	what do you do about pipelining?
-	
-
+	Q: what do you do about pipelining?
 	in a modern CPU, benchmarking is HARD
+
+	A: measure what you want in bulk and take the average value for a
+	large number of trials. Recognize that it may be different.
  */
 template<typename Func>
 void benchmark1(const char msg[], Func f, uint32_t n) {
-	for (uint32_t trials = 0; trials < 10; trials++) {
+	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		uint64_t res = f(n);
 		clock_t t1 = clock();
@@ -406,7 +452,7 @@ void benchmark2(const char msg[], Func f, uint32_t n) {
 	uint32_t* p = new uint32_t[n]; // allocate a big chunk of memory
 	for (int i =  0; i < n; i++)
 		p[i] = 0;
-	for (uint32_t trials = 0; trials < 10; trials++) {
+	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		uint64_t res = f(p, n); // give it to the function to play with
 		clock_t t1 = clock();
@@ -421,7 +467,7 @@ void benchmark3(const char msg[], Func f, uint32_t n) {
   float* p = new float[n];
   for (int i = 0; i < n; i++)
     p[i] = 0;
-	for (uint32_t trials = 0; trials < 10; trials++) {
+	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		float res = f(p, n); // give it to the function to play with
 		clock_t t1 = clock();
@@ -436,7 +482,7 @@ void benchmark4(const char msg[], Func f, uint32_t n) {
   double* p = new double[n];
   for (int i = 0; i < n; i++)
     p[i] = 0;
-	for (uint32_t trials = 0; trials < 10; trials++) {
+	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		double res = f(p, n); // give it to the function to play with
 		clock_t t1 = clock();
@@ -448,7 +494,7 @@ void benchmark4(const char msg[], Func f, uint32_t n) {
 // integer parameter returning float
 template<typename Func>
 void benchmark5(const char msg[], Func f, uint32_t n) {
-	for (uint32_t trials = 0; trials < 10; trials++) {
+	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		float res = f(n); // give it to the function to play with
 		clock_t t1 = clock();
@@ -459,7 +505,7 @@ void benchmark5(const char msg[], Func f, uint32_t n) {
 // integer parameter returning double
 template<typename Func>
 void benchmark6(const char msg[], Func f, uint32_t n) {
-	for (uint32_t trials = 0; trials < 10; trials++) {
+	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		double res = f(n); // give it to the function to play with
 		clock_t t1 = clock();
@@ -477,7 +523,7 @@ void benchmark7(const char msg[], Func f, uint32_t n) {
   for (int i = 0; i < n*n; i++)
     b[i] = 0;
   float* c = new float[n*n];
-	for (uint32_t trials = 0; trials < 10; trials++) {
+	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		f(c, a, b, n); // give it to the function to play with
 		clock_t t1 = clock();
@@ -534,4 +580,7 @@ int main() {
   //  benchmark7("matmult3", matmult3, 256);
   //  benchmark7("matmult4", matmult4, 256);
 
+	benchmark6("deg2rad", deg2rad, n);
+	benchmark6("grav", grav, n);
+	
 }
