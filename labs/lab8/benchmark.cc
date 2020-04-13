@@ -12,7 +12,7 @@ void f();
 
 // write this in assembler! count from 0 to n-1
 uint32_t a1(uint32_t n);
-
+ 
 // write this in assembler! count from n down to 0
 uint32_t a2(uint32_t n);
 
@@ -384,6 +384,7 @@ constexpr double PI = 3.14159265358979;
 */
 
 /* Compute the product of all these terms. Look at the assembly language. Can you come up with a more efficient way to get the same answer? Benchmark the original and your better version.
+  the compiler is scared because a + b + c != a + (b+c)
 */
 double deg2rad(uint32_t n) {
 	const double x = 0.001;
@@ -403,6 +404,10 @@ double deg2rad(uint32_t n) {
 
 	 a =  F / m1
 */
+
+//hint: Horner's form
+//  a*pow(x,3) + b*pow(x,2) + c*x + d   ((a*x+b)*x+c)*x+d
+
 double grav(uint32_t n) {
 	constexpr double G =  6.6742E-11; // universal gravitational constant
 	double x = 0; // one dimensional problem. Start at x = 0
@@ -413,8 +418,25 @@ double grav(uint32_t n) {
 	constexpr double dt = 0.1; // 0.1 second timestep
 	for (uint32_t i = 0; i < n; i++) {
 		double F = G * m1 * m2 / (r*r);
-		double a = F / m1;
+		double a = F / m1; // acceleration on the earth
 		x = x + v * dt + 0.5*a * dt * dt;
+		v = v + a * dt;
+	}
+	return x;
+}
+
+double grav2(uint32_t n) {
+	constexpr double G =  6.6742E-11; // universal gravitational constant
+	double x = 0; // one dimensional problem. Start at x = 0
+	double v = 0; // velocity = 0 to start
+	double r = 1.5e12; // distance apart
+	const double m1 = 5.972e24;      // earth mass
+	const double m2 = 7.34767309e22; // moon mass
+	constexpr double dt = 0.1; // 0.1 second timestep
+	for (uint32_t i = 0; i < n; i++) {
+		double F = G * m1 * m2 / (r*r);
+		double a = F / m1; // acceleration on the earth
+		x = x + v * dt + 0.5*a * dt * dt; 
 		v = v + a * dt;
 	}
 	return x;
@@ -533,7 +555,7 @@ void benchmark7(const char msg[], Func f, uint32_t n) {
 
 int main() {
 	const uint32_t n = 100000000; // 100 million
-	//  benchmark1("a1", a1, n);
+	//	benchmark1("a1", a1, n);
 	//	benchmark1("a2", a2, n);
 
 	benchmark1("b1", b1, n);
@@ -577,10 +599,12 @@ int main() {
 
   // matrix benchmarks with three arrays
   benchmark7("matmult2", matmult2, 1024);
-  //  benchmark7("matmult3", matmult3, 256);
+	//	benchmark7("matmult3", matmult3, 256);
   //  benchmark7("matmult4", matmult4, 256);
 
 	benchmark6("deg2rad", deg2rad, n);
+	benchmark6("deg2rad2", deg2rad2, n);
 	benchmark6("grav", grav, n);
+	benchmark6("grav2", grav2, n);
 	
 }
