@@ -12,6 +12,8 @@ int main() {
 	cout << setBit(1, 31) << '\n';
 
 /* Same as above but this time clear the bit. This can be done by anding with the inverse
+  the easiest way to do this is using the ARM instruction BIC (bit clear)
+	which is AND with NOT register
  */
 answer = clearBit(1023, 5);
 // 1023 = 00000000000000000000001111111111
@@ -48,7 +50,13 @@ It is called BIC (bit clear)
   answer =  replaceBits(0xF0F0A5A5, 0xFFFFF000, 0x123);
   cout << hex << answer << '\n'; // should be 0xF0F0A123
 
+	int r = 255, g = 0, b = 0;
+  uint32_t color = buildColor(r, g, b);
+	cout << hex << color << '\n';
+	cout << hex << buildColor(128, 128, 128) << '\n';
+	cout << hex << buildColor(0, 100, 150) << '\n';
 
+	
 //loop and function practice (C++)
 
 /* choose(n,r) = n! / (r! (n-r)!)
