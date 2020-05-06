@@ -20,18 +20,25 @@ using namespace std;
   for i = 2 to n                        hint: 0xFFFFFFFF
 	isPrimes[i] = true
   end
-	isPrime[0] = 0xFFFFFFFF // set first 32 numbers all true!!
+	//isPrime[0] = 0xFFFFFFFF // set first 32 numbers all true!!
 
-	for i = 4 to n step 2
-	  isPrime[i] = false   (4, 6, 8, ... not prime)
-  end
+	//for i = 4 to n step 2
+	//  isPrime[i] = false   (4, 6, 8, ... not prime)
+  //end
 
   count = 1  // special case: 2 is prime
-	for i = 3 to n step 2
+  int lim = sqrt(n)
+	for i = 3 to lim step 2
 	  if isPrime[i]
       count = count + 1
       for j = i*i to n step i*2
         isPrime[j] = false
+    end
+  end
+  note: you can make the next loop step by 2 if you start with odd!
+  for i = lim+1 to n
+    if isPrime[i]
+      count = count + 1
     end
   end
  */
