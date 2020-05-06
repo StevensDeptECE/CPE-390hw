@@ -29,7 +29,7 @@ main:
 	@ args = 0, pretend = 0, frame = 64
 	@ frame_needed = 0, uses_anonymous_args = 0
 .LVL0:
-	.loc 1 8 0
+	.loc 1 10 0
 	ldr	ip, .L6
 	.loc 1 6 0
 	push	{r4, r5, r6, r7, r8, lr}
@@ -44,22 +44,22 @@ main:
 	.pad #64
 	sub	sp, sp, #64
 	.cfi_def_cfa_offset 88
-	.loc 1 8 0
+	.loc 1 10 0
 	ldmia	ip!, {r0, r1, r2, r3}
 	add	r4, sp, #4
-	.loc 1 9 0
+	.loc 1 13 0
 	add	lr, sp, #24
 .LBB9:
-	.loc 1 13 0
+	.loc 1 19 0
 	ldr	r7, .L6+4
 .LBE9:
-	.loc 1 8 0
+	.loc 1 10 0
 	stmia	r4!, {r0, r1, r2, r3}
 	add	r8, sp, #64
 	ldr	r3, [ip], #4
 	mov	r6, #9
 	str	r3, [r4]
-	.loc 1 9 0
+	.loc 1 13 0
 	ldmia	ip!, {r0, r1, r2, r3}
 	add	r4, sp, #44
 .LBB14:
@@ -71,21 +71,22 @@ main:
 .LBE11:
 .LBE10:
 .LBE14:
-	.loc 1 9 0
+	.loc 1 13 0
 	ldr	ip, [ip]
 	stmia	lr!, {r0, r1, r2, r3}
-	.loc 1 11 0
+	.loc 1 17 0
 	mov	r0, r4
+	mov	r3, #5
 	add	r2, sp, #24
 	add	r1, sp, #4
-	.loc 1 9 0
+	.loc 1 13 0
 	str	ip, [lr]
-	.loc 1 11 0
-	bl	_Z3addPiPKiS1_
+	.loc 1 17 0
+	bl	_Z3addPiPKiS1_i
 .LVL1:
 .L2:
 .LBB15:
-	.loc 1 13 0
+	.loc 1 19 0
 	ldr	r1, [r4], #4
 	mov	r0, r7
 	bl	_ZNSolsEi
@@ -101,7 +102,7 @@ main:
 .LVL4:
 .LBE12:
 .LBE13:
-	.loc 1 12 0
+	.loc 1 18 0
 	cmp	r4, r8
 	bne	.L2
 .LVL5:
@@ -119,7 +120,7 @@ main:
 .LVL7:
 .LBE17:
 .LBE16:
-	.loc 1 15 0
+	.loc 1 21 0
 	mov	r0, #0
 	add	sp, sp, #64
 	.cfi_def_cfa_offset 24
@@ -142,7 +143,7 @@ main:
 _GLOBAL__sub_I_main:
 	.fnstart
 .LFB1717:
-	.loc 1 15 0
+	.loc 1 21 0
 	.cfi_startproc
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
@@ -164,7 +165,7 @@ _GLOBAL__sub_I_main:
 	ldr	r1, .L10+8
 .LBE19:
 .LBE18:
-	.loc 1 15 0
+	.loc 1 21 0
 	pop	{r4, lr}
 	.cfi_restore 14
 	.cfi_restore 4
@@ -256,7 +257,7 @@ _ZStL8__ioinit:
 	.file 43 "/usr/include/wctype.h"
 	.section	.debug_info,"",%progbits
 .Ldebug_info0:
-	.4byte	0x2885
+	.4byte	0x288a
 	.2byte	0x4
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
@@ -4730,7 +4731,7 @@ _ZStL8__ioinit:
 	.4byte	.LBB18
 	.4byte	.Ldebug_ranges0+0x38
 	.byte	0x1
-	.byte	0xf
+	.byte	0x15
 	.uleb128 0x5e
 	.4byte	0x2723
 	.2byte	0xffff
@@ -4749,7 +4750,7 @@ _ZStL8__ioinit:
 	.byte	0
 	.uleb128 0x62
 	.4byte	.LVL10
-	.4byte	0x2870
+	.4byte	0x2875
 	.uleb128 0x61
 	.uleb128 0x1
 	.byte	0x50
@@ -4769,12 +4770,12 @@ _ZStL8__ioinit:
 	.uleb128 0x65
 	.4byte	.LASF439
 	.byte	0x1
-	.byte	0xf
+	.byte	0x15
 	.4byte	0x124c
 	.uleb128 0x65
 	.4byte	.LASF440
 	.byte	0x1
-	.byte	0xf
+	.byte	0x15
 	.4byte	0x124c
 	.byte	0
 	.uleb128 0x66
@@ -4804,7 +4805,7 @@ _ZStL8__ioinit:
 	.4byte	.LFE1436-.LFB1436
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x2860
+	.4byte	0x2865
 	.uleb128 0x6a
 	.ascii	"n\000"
 	.byte	0x1
@@ -4814,24 +4815,24 @@ _ZStL8__ioinit:
 	.uleb128 0x6b
 	.ascii	"a\000"
 	.byte	0x1
-	.byte	0x8
-	.4byte	0x2860
+	.byte	0xa
+	.4byte	0x2865
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -84
 	.uleb128 0x6b
 	.ascii	"b\000"
 	.byte	0x1
-	.byte	0x9
-	.4byte	0x2860
+	.byte	0xd
+	.4byte	0x2865
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -64
 	.uleb128 0x6b
 	.ascii	"c\000"
 	.byte	0x1
-	.byte	0xa
-	.4byte	0x2860
+	.byte	0x10
+	.4byte	0x2865
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -44
@@ -4841,14 +4842,14 @@ _ZStL8__ioinit:
 	.uleb128 0x6d
 	.ascii	"i\000"
 	.byte	0x1
-	.byte	0xc
+	.byte	0x12
 	.4byte	0x124c
 	.uleb128 0x6e
 	.4byte	0x272f
 	.4byte	.LBB10
 	.4byte	.Ldebug_ranges0+0x20
 	.byte	0x1
-	.byte	0xd
+	.byte	0x13
 	.4byte	0x27f2
 	.uleb128 0x6f
 	.4byte	0x274e
@@ -4889,7 +4890,7 @@ _ZStL8__ioinit:
 	.4byte	.LBB16
 	.4byte	.LBE16-.LBB16
 	.byte	0x1
-	.byte	0xe
+	.byte	0x14
 	.4byte	0x2841
 	.uleb128 0x6f
 	.4byte	0x274e
@@ -4921,7 +4922,7 @@ _ZStL8__ioinit:
 	.byte	0
 	.uleb128 0x70
 	.4byte	.LVL1
-	.4byte	0x2879
+	.4byte	0x287e
 	.uleb128 0x61
 	.uleb128 0x1
 	.byte	0x50
@@ -4940,11 +4941,16 @@ _ZStL8__ioinit:
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -72
+	.uleb128 0x61
+	.uleb128 0x1
+	.byte	0x53
+	.uleb128 0x1
+	.byte	0x35
 	.byte	0
 	.byte	0
 	.uleb128 0x3b
 	.4byte	0x124c
-	.4byte	0x2870
+	.4byte	0x2875
 	.uleb128 0x3c
 	.4byte	0x1239
 	.byte	0x4
@@ -6985,8 +6991,6 @@ _ZStL8__ioinit:
 	.ascii	"wcsstr\000"
 .LASF190:
 	.ascii	"fwide\000"
-.LASF443:
-	.ascii	"_Z3addPiPKiS1_\000"
 .LASF317:
 	.ascii	"int_n_cs_precedes\000"
 .LASF124:
@@ -7230,6 +7234,8 @@ _ZStL8__ioinit:
 	.ascii	"integral_constant<bool, true>\000"
 .LASF271:
 	.ascii	"uint16_t\000"
+.LASF443:
+	.ascii	"_Z3addPiPKiS1_i\000"
 .LASF212:
 	.ascii	"wcscoll\000"
 .LASF442:

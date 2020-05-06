@@ -7,7 +7,7 @@ hw6.o: hw6.cc
 	$(CXX) -S hw6.cc   # generate assembler hw1.s for you to read
 
 add.o: add.s
-	$(CXX) add.s
+	$(CXX) -c add.s
 
 clean:
 	rm *.o hw6
