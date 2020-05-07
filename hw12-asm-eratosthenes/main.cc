@@ -26,6 +26,19 @@ using namespace std;
 	//  isPrime[i] = false   (4, 6, 8, ... not prime)
   //end
 
+// simple eratosthenes
+  count = 1  // special case: 2 is prime
+	for i = 3 to n step 2
+	  if isPrime[i]
+      count = count + 1
+      for j = 2*i to n step i // this is a bit wasteful 13*2 13*3 13*4 13*5 ...
+        isPrime[j] = false
+    end
+  end
+
+
+
+
   count = 1  // special case: 2 is prime
   int lim = sqrt(n)
 	for i = 3 to lim step 2
@@ -36,7 +49,7 @@ using namespace std;
     end
   end
   note: you can make the next loop step by 2 if you start with odd!
-  for i = lim+1 to n
+  for i = lim+1 to n step 2 (this would mean that lim+1 is odd)
     if isPrime[i]
       count = count + 1
     end
