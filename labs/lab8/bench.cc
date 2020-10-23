@@ -50,6 +50,14 @@ uint32_t b3(uint32_t n) {
 	return sum;
 }
 
+// compute the sum from 0 to n-1 counting up
+uint64_t b3b(uint64_t n) {
+	uint64_t sum = 0;
+	for (int i = 0; i < n; i++)
+		sum += i;
+	return sum;
+}
+
 // compute the sum from n down to 1 counting down
 uint32_t b4(uint32_t n) {
 	uint32_t sum = 0;
@@ -238,6 +246,7 @@ int main() {
 	benchmark1("b1", b1, n);
 	benchmark1("b2", b2, n);
 	benchmark1("b3", b3, n);
+	benchmark1("b3b", b3b, n);
 	benchmark1("b4", b4, n);
 	benchmark1("b5", b5, n);
 	benchmark1("b6", b6, n);
