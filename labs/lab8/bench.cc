@@ -17,13 +17,13 @@ uint32_t a1(uint32_t n);
 uint32_t a2(uint32_t n);
 
 // write this in assembler! Read the first element of the array n times
-uint32_t readOneLocation(const int a[], int n);
+uint32_t readOneLocation(uint32_t a[], int n);
 
 // write this in assembler! Read the entire array of n elements                 
-uint32_t readArray(const int a[], int n);
+uint32_t readArray(uint32_t a[], int n);
                                                                                 
 // write this in assembler! Write zero to the entire array of n elements        
-uint32_t writeArray(int a[], int n);
+uint32_t writeArray(uint32_t a[], int n);
                                            
 
 
@@ -199,9 +199,10 @@ uint64_t array9(uint32_t x[], uint32_t n) {
 
 
 
-// benchmark  function with an integer parameter n times. Execute 5 trials
+// benchmark  function with an integer parameter n times.
+// repeat the test numTrials times, printing each time to check stability
 template<typename Func>
-void benchmark1(const char msg[], Func f, uint32_t n) {
+void benchmark1(const char msg[], Func f, uint32_t n, uint32_t numTrials) {
 	for (uint32_t trials = 0; trials < 5; trials++) {
 		clock_t t0 = clock();
 		uint64_t res = f(n);
@@ -211,22 +212,27 @@ void benchmark1(const char msg[], Func f, uint32_t n) {
 }
 
 /*
- Execute an array function n times, and repeat numTrials times because on the
- Raspberry pi we can't write enough memory.
- Do the same test on the PC so you can compare between the two meaningfully
+ Execute an array function n times, and repeat iterationsPer times because
+ on the Raspberry pi there is not enough memory.
+ Then repeat numTrials times to see whether the test is stable
 */
 template<typename Func>
-void benchmark2(const char msg[], Func f, uint32_t n, uint32_t numTrials) {
+void benchmark2(const char msg[], Func f, uint32_t n,
+								uint32_t iterationsPer,	uint32_t numTrials) {
+
 	uint32_t* p = new uint32_t[n]; // allocate a big chunk of memory
 	for (int i =  0; i < n; i++) // fill the array with values
 		p[i] = i;
-	clock_t t0 = clock();
-	uint32_t res = 0;
-	for (uint32_t trials = 0; trials < numTrials; trials++) {
-		res += f(p, n); // force the optimizer to do the work
+
+	for (int trials = 0; trials < numTrials; trials++) {
+		clock_t t0 = clock();
+		uint32_t res = 0;
+		for (uint32_t i = 0; i < iterationsPer; i++) {
+			res += f(p, n); // force the optimizer to do the work
+		}
+		clock_t t1 = clock();
+		cout << setw(12) << msg << setw(18) << res << '\t' << (t1-t0) << '\n';
 	}
-	clock_t t1 = clock();
-	cout << setw(12) << msg << setw(18) << res << '\t' << (t1-t0) << '\n';
 	delete [] p;
 }
 
@@ -235,34 +241,32 @@ int main() {
 		Note: you might have to make n bigger on the PC for accuracy
 		because it's faster	than the Raspberry pi
 	*/
-	const uint32_t n = 100000000; // 100 million
-                                                                             
-  /*                                                                            
-    to benchmark your loop functions, uncomment the code below                  
-   */
+	constexpr uint32_t numTrials = 5; // try each test 5 times
 	
-  // benchmark1("a1", a1, n);                                                  
-  // benchmark1("a2", a2, n);                                                  
-	benchmark1("b1", b1, n);
-	benchmark1("b2", b2, n);
-	benchmark1("b3", b3, n);
-	benchmark1("b3b", b3b, n);
-	benchmark1("b4", b4, n);
-	benchmark1("b5", b5, n);
-	benchmark1("b6", b6, n);
-	benchmark1("b7", b7, n);
-
+	const uint32_t n = 200000000; // 200 million
+	benchmark1("a1", a1, n, numTrials);     
+  benchmark1("a2", a2, n, numTrials);
+	benchmark1("b1", b1, n, numTrials);
+	benchmark1("b2", b2, n, numTrials);
+	benchmark1("b3", b3, n, numTrials);
+	benchmark1("b3b", b3b, n, numTrials);
+	benchmark1("b4", b4, n, numTrials);
+	benchmark1("b5", b5, n, numTrials);
+	benchmark1("b6", b6, n, numTrials);
+	benchmark1("b7", b7, n, numTrials);
 
 	// this is the size for array problems on the pi
 	const uint32_t narray = 40000000; // 40 million
 
 	 // this should take enough time ( a couple of seconds)
 	// to get meaningful results on on the pi. You might need more on PC
-	const uint32_t numTrials = 100;
-	// benchmark2("readOneLocation", readOneLocation, narray, numTrials);              	// benchmark2("readArray", readArray, narray, numTrials);                        // benchmark("writeArray", writeArray, array, numTrials);
+	const uint32_t iter = 200; // iterations per trial
 
-	benchmark2("array1", array1, narray, numTrials);
-	benchmark2("array2", array2, narray, numTrials);
+	benchmark2("readOneLocation", readOneLocation, narray, iter, numTrials);
+	benchmark2("readArray", readArray, narray, iter, numTrials);
+	benchmark2("writeArray", writeArray, narray, iter, numTrials);
+	benchmark2("array1", array1, narray, iter, numTrials);
+	benchmark2("array2", array2, narray, iter, numTrials);
 
 	// YOU MUST COMPLETE array3, it is not finished!
 	//	benchmark2("array3", array3, narray, numTrials);
