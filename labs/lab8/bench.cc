@@ -17,7 +17,7 @@ uint32_t a1(uint32_t n);
 uint32_t a2(uint32_t n);
 
 // write this in assembler! Read the first element of the array n times
-uint32_t readArray(const int a[], int n);
+uint32_t readOneLocation(const int a[], int n);
 
 // write this in assembler! Read the entire array of n elements                 
 uint32_t readArray(const int a[], int n);
@@ -86,7 +86,7 @@ uint32_t b6(uint32_t n) {
 uint32_t b7(uint32_t n) {
 	uint32_t sum = 0;
 	for (int i = 1; i <= n; i++)
-		sum += i % 100200301;
+		sum += i % 100301;
 	return sum;
 }
 
