@@ -35,9 +35,14 @@ int main() {
 	uint32_t b6[4]; // {0,0,1,0}
 	add128(b6, b4, b5); // b7 = b4 + b5
 	print(b6);
+	
+	uint32_t b7[] = {0,0,2000000000, 3000000000};
+	uint32_t b8[] = {0,0,2500000000, 2000000000};
+	uint32_t b9[4]; // {0,1,?,?}
+	add128(b6, b4, b5); // b7 = b4 + b5
+	print(b6);
 
 	
-#if 0
 	const uint32_t ULONG_MAX = 4294967295;
 	BigNum b5(ULONG_MAX);
 	BigNum b6(1);
