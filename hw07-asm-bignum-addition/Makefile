@@ -6,7 +6,7 @@ hw7setup: hw7.o cppadd128.o
 	$(CXX) hw7.o cppadd128.o -o hw7setup
 
 # the homework is to write add128.s to add two 128 bit numbers
-hw7:  hw7.o add128.s
+hw7:  hw7.o add128.o
 	$(CXX) hw7.o add128.o -o hw7  #link the two .o files together into a program
 hw7.o: hw7.cc
 	$(CXX) -c hw7.cc   # compile only

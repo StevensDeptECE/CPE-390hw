@@ -1,10 +1,10 @@
 #include "BigNum.hh"
 
-add128(int[] dest, int a[], int b[]) {
+void add128(uint32_t dest[], const uint32_t a[], const uint32_t b[]) {
 	dest[3] = a[3] + b[3];
-	dest[3] = a[2] + b[2]; // + carry!!!
-	dest[1] = a[1] + b[1]; // + carry!!!
-	dest[0] = a[0] + b[0]; // + carry!!!
+	dest[2] = a[2] + b[2];
+	dest[1] = a[1] + b[1];
+	dest[0] = a[0] + b[0];
 }
 
 #if 0
@@ -16,5 +16,4 @@ BigNum operator + (const BigNum& left, const BigNum& right) {
 	ans.a = left.a + right.a;// + carry;
 	return ans;
 }
-
 #endif
