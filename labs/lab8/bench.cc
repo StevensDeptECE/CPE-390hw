@@ -99,6 +99,32 @@ uint32_t b7(uint32_t n) {
 	return sum;
 }
 
+// double precision adding
+uint32_t b8(uint32_t n) {
+	double sum = 0;
+	for (double i = 1; i <= n; i++)
+		sum += i;
+	return uint32_t(sum);
+}
+
+// double precision multiply
+uint32_t b9(uint32_t n) {
+	double prod = 1;
+	for (double i = 0.999; n > 0; n--, i += 0.00001)
+		prod *= i;
+	return uint32_t(prod);
+}
+
+// double precision divide
+uint32_t b10(uint32_t n) {
+	double prod = 1;
+	for (double i = 0.999; n > 0; n--, i += 0.00001)
+		prod /= i;
+	return uint32_t(prod);
+}
+
+
+
 
 // sum the elements in the array
 uint64_t array1(const uint32_t x[], uint32_t n) {
@@ -264,6 +290,11 @@ int main() {
 	benchmark1("b5", b5, n, numTrials);
 	benchmark1("b6", b6, n, numTrials);
 	benchmark1("b7", b7, n, numTrials);
+
+
+	benchmark1("b8", b7, n, numTrials);
+	benchmark1("b9", b7, n, numTrials);
+	benchmark1("b10", b7, n, numTrials);
 
 	// this is the size for array problems on the pi
 	const uint32_t narray = 40000000; // 40 million
