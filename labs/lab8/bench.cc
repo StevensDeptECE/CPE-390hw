@@ -5,6 +5,7 @@
 using namespace std;
 
 void f();
+void f(int,int,int,int,int);
 
 /*
 You must write these 5 functions in assembler elsewhere and link them in
@@ -33,6 +34,14 @@ uint32_t b1(uint32_t n) {
 		f();
 	return 0;
 }
+
+// count up and call function f n times
+uint32_t b1b(uint32_t n) {
+	for (int i = 0; i < n; i++)
+		f(i, 3, 5, 7, i);
+	return 0;
+}
+
 
 // count down and call function f n times
 uint32_t b2(uint32_t n) {
@@ -101,7 +110,7 @@ uint64_t array1(const uint32_t x[], uint32_t n) {
 
 // sum the elements in the array backwards
 uint64_t array2(uint32_t x[], uint32_t n) {
-	uint64_t sum = x[0];
+	uint64_t sum = 0;
 	for (n--; n > 0; n--)
 		sum += x[n];
 	sum += x[0];
@@ -203,7 +212,7 @@ uint64_t array9(uint32_t x[], uint32_t n) {
 // repeat the test numTrials times, printing each time to check stability
 template<typename Func>
 void benchmark1(const char msg[], Func f, uint32_t n, uint32_t numTrials) {
-	for (uint32_t trials = 0; trials < 5; trials++) {
+	for (uint32_t trials = 0; trials < numTrials; trials++) {
 		clock_t t0 = clock();
 		uint64_t res = f(n);
 		clock_t t1 = clock();
@@ -247,6 +256,7 @@ int main() {
 	benchmark1("a1", a1, n, numTrials);     
   benchmark1("a2", a2, n, numTrials);
 	benchmark1("b1", b1, n, numTrials);
+	benchmark1("b1b", b1b, n, numTrials);
 	benchmark1("b2", b2, n, numTrials);
 	benchmark1("b3", b3, n, numTrials);
 	benchmark1("b3b", b3b, n, numTrials);
