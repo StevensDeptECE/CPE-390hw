@@ -86,7 +86,7 @@ public:
 	Vec3d gravAccel(const Body& b) {
 		Vec3d dpos = pos - b.pos;
 		double r = dpos.mag();
-		double amag = G * b.m / (r*r);
+		double amag = G * b.m * m / (r*r) / m;
 		return Vec3d(dpos.x/r*amag, dpos.y/r*amag, dpos.z/r*amag);
 	}
 };
