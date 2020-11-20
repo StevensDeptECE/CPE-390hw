@@ -292,9 +292,9 @@ int main() {
 	benchmark1("b7", b7, n, numTrials);
 
 
-	benchmark1("b8", b7, n, numTrials);
-	benchmark1("b9", b7, n, numTrials);
-	benchmark1("b10", b7, n, numTrials);
+	benchmark1("b8", b8, n, numTrials);
+	benchmark1("b9", b9, n, numTrials);
+	benchmark1("b10", b10, n, numTrials);
 
 	// this is the size for array problems on the pi
 	const uint32_t narray = 40000000; // 40 million
