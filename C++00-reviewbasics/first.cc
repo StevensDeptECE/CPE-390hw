@@ -1,12 +1,9 @@
 /*
-	Author:
+  Author:
   cite:
-	pledge
+  pledge
 
  */
 #include <iostream>
 
-int main() {
-
-
-}
+int main() {}
